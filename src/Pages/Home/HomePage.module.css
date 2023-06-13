@@ -1,0 +1,44 @@
+.homePageContainer {
+  width: max-content;
+  margin: 6em auto;
+}
+.userInfoCard {
+  display: flex;
+  border: 1px solid rgb(251, 196, 0);
+  border-radius: 10px;
+  align-items: center;
+  padding: 1em;
+  margin-top: 1em;
+}
+.homePageHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.userImage {
+  max-width: 15em;
+  max-height: 15em;
+  border-radius: 10px;
+}
+
+.userImage img {
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.userInfoCard > div {
+  margin: 2em;
+}
+
+.userInfo div {
+  margin-block: 1.2em;
+}
+.userInfo div span {
+  margin-right: 1em;
+}
+
+@media screen and (max-width: 426px) {
+  .userInfoCard {
+    flex-direction: column;
+  }
+}

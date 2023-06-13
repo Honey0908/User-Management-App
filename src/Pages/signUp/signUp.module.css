@@ -1,0 +1,35 @@
+.container {
+  width: 70%;
+  padding: 1%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+.imageCol {
+  display: block;
+  padding: 2em;
+}
+.FormCol {
+  padding-inline: 2em;
+}
+
+@media (max-width: 768px) {
+  .imageCol {
+    display: none;
+  }
+  .container {
+    width: 100%;
+  }
+  .FormCol {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 1025px) {
+  .container {
+    width: 90%;
+  }
+  .FormCol {
+    padding-inline: 0;
+  }
+}
