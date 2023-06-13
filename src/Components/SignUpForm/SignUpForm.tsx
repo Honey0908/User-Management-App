@@ -33,7 +33,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   phoneNo: Yup.string()
-    .matches(/^[0-9]{10}$/, 'Invalid phone number')
+    .matches(/^[6-9]\d{9}$/, 'Invalid phone number')
     .required('Phone number is required'),
   password: Yup.string().required('Password is required'),
   confirmPassword: Yup.string()

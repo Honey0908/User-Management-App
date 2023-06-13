@@ -3,7 +3,7 @@ import { Form, Button, Typography, Input } from 'antd';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/userSlice';
+import { loginUser, setUser } from '../../store/userSlice';
 
 const { Title } = Typography;
 
@@ -26,14 +26,7 @@ const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values: LoginValues) => {
-    // const { email, password } = values;
-    // dispatch(
-    //   setUser({
-    //     email,
-    //     password,
-    //   })
-    // );
-    console.log("changed state");
+    dispatch(loginUser(values));
   };
 
   return (
