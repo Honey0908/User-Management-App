@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { removeError } from '../../store/userSlice';
 const Login: React.FC = () => {
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(removeError());
     }, [])
