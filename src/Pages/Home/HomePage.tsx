@@ -17,30 +17,33 @@ const HomePage: React.FC = () => {
   return (
     <>
       <div className={styles.homePageContainer}>
+
         <div className={styles.homePageHeading}>
 
-      <h1>Welcome {user.name} !</h1>
-      <Button onClick={handleLogout} type='default'>Logout</Button>
+          <h1>Welcome {user.name} !</h1>
+          <Button onClick={handleLogout} type='default'>Logout</Button>
+
         </div>
         <div className={styles.userInfoCard}>
 
-        <div className={styles.userImage}>
-          {user.image && (
-            <img src={user.image} alt="Profile Picture" height="100%" width="100%" />
-          )}
-        </div>
-        <div className={styles.userInfo}>
+          <div className={styles.userImage}>
+            {user.image && (
+              <img src={user.image} alt="Profile Picture" height="100%" width="100%" />
+            )}
+          </div>
+
+          <div className={styles.userInfo}>
+            Hello {user.name},
+            <br />
+            <p>you are registered with</p>
+            <div>
+              <MailOutlined />  {user.email}
+            </div>
+            <div>
+              <PhoneOutlined />  {user.phoneNo}
+            </div>
+          </div>
           
-            Hello {user.name}, 
-          <br/>
-          <p>you are registered with</p>
-          <div>
-            <MailOutlined />  {user.email}
-          </div>
-          <div>
-            <PhoneOutlined />  {user.phoneNo}
-          </div>
-        </div>
         </div>
       </div>
     </>

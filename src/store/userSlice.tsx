@@ -20,6 +20,7 @@ export type InitialStateType = {
   isError: boolean;
 };
 
+/*----------- Local storage functions---------- */
 const getUserFromLocalStorage = (): UserDataType | null => {
   const userDataString = localStorage.getItem('user');
   if (userDataString) {
@@ -35,6 +36,8 @@ const setUserToLocalStorage = (user: UserDataType): void => {
 const removeUserFromLocalStorage = (): void => {
   localStorage.removeItem('user');
 };
+/*--------- Local storage functions ends ----------*/
+
 
 const initialState: InitialStateType = {
   user: getUserFromLocalStorage(),
@@ -42,6 +45,7 @@ const initialState: InitialStateType = {
   error: '',
   isError: false,
 };
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -68,6 +72,10 @@ const userSlice = createSlice({
       state.error = '';
       state.isError = false;
     },
+    removeError:(state)=>{
+      state.error=""
+      state.isError=false
+    },
     loginUser: (state, action: PayloadAction<UserLoginType>) => {
       const userData = getUserFromLocalStorage();
       const { email, password } = action.payload;
@@ -84,5 +92,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, resetUser, loginUser } = userSlice.actions;
+export const { setUser, resetUser, loginUser ,removeError } = userSlice.actions;
 export default userSlice.reducer;

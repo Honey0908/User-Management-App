@@ -1,37 +1,33 @@
 import React from 'react';
-import { Form, Button, Typography, Input } from 'antd';
+import { Form, Button, Input } from 'antd';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { loginUser, setUser } from '../../store/userSlice';
+import { UserLoginType, loginUser } from '../../store/userSlice';
 
-const { Title } = Typography;
 
-interface LoginValues {
-  email: string;
-  password: string;
-}
 
-const initialValues: LoginValues = {
+const initialValues: UserLoginType = {
   email: '',
   password: '',
 };
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 
-const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
 
-  const handleSubmit = (values: LoginValues) => {
+const LoginForm: React.FC = () => {
+
+  const dispatch = useDispatch();
+  const handleSubmit = (values:UserLoginType) => {
     dispatch(loginUser(values));
   };
 
   return (
-    <>
-      
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -82,7 +78,7 @@ const LoginForm: React.FC = () => {
           </Form>
         )}
       </Formik>
-    </>
+  
   );
 };
 
