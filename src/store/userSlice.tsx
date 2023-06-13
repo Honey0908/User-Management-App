@@ -21,26 +21,32 @@ export type InitialStateType = {
 };
 
 /*----------- Local storage functions---------- */
-const getUserFromLocalStorage = (): UserDataType | null => {
-  const userDataString = localStorage.getItem('user');
-  if (userDataString) {
-    return JSON.parse(userDataString) as UserDataType;
+const getUsersFromLocalStorage = (): UserDataType[] | null => {
+  const usersData = localStorage.getItem('users');
+  if (usersData) {
+    return JSON.parse(usersData);
   }
   return null;
 };
 
 const setUserToLocalStorage = (user: UserDataType): void => {
-  localStorage.setItem('user', JSON.stringify(user));
+  const usersData = JSON.parse(localStorage.getItem('users') || '[]');
+  usersData.push(user);
+  localStorage.setItem('users', JSON.stringify(usersData));
 };
 
-const removeUserFromLocalStorage = (): void => {
-  localStorage.removeItem('user');
+
+const removeUserFromLocalStorage = (email: string): void => {
+  const usersData = JSON.parse(localStorage.getItem('users') || '[]');
+  const updatedUsersData = usersData.filter((user: UserDataType) => user.email !== email);
+  localStorage.setItem('users', JSON.stringify(updatedUsersData));
 };
+
 /*--------- Local storage functions ends ----------*/
 
 
 const initialState: InitialStateType = {
-  user: getUserFromLocalStorage(),
+  user: null,
   isLoggedIn: false,
   error: '',
   isError: false,
@@ -52,36 +58,43 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserDataType>) => {
-      const userData = getUserFromLocalStorage();
       const { email } = action.payload;
-      if (userData && email === userData.email) {
+      const usersData = getUsersFromLocalStorage();
+      const user = usersData?.find((user) => user.email === email);
+    
+      if (user) {
         state.isError = true;
         state.error = 'User Already Has an Account!';
         return;
       }
+    
       state.user = action.payload;
       state.isLoggedIn = true;
       state.error = '';
       state.isError = false;
       setUserToLocalStorage(action.payload);
     },
+
     resetUser: (state) => {
-      removeUserFromLocalStorage();
+      removeUserFromLocalStorage(state.user?.email!);
       state.user = null;
       state.isLoggedIn = false;
       state.error = '';
       state.isError = false;
     },
+
     removeError:(state)=>{
       state.error=""
       state.isError=false
     },
+
     loginUser: (state, action: PayloadAction<UserLoginType>) => {
-      const userData = getUserFromLocalStorage();
       const { email, password } = action.payload;
-      if (userData && userData.email === email && userData.password === password) {
+      const usersData = getUsersFromLocalStorage();
+      const user = usersData?.find((user) => user.email === email);
+      if (user && user.email === email && user.password === password) {
         state.isLoggedIn = true;
-        state.user = userData;
+        state.user = user;
         state.error = '';
         state.isError = false;
         return;
