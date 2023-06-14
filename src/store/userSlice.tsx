@@ -38,9 +38,10 @@ const setUserToLocalStorage = (user: UserDataType): void => {
 
 
 const removeUserFromLocalStorage = (email: string): void => {
-  const usersData = JSON.parse(localStorage.getItem('users') || '[]');
-  const updatedUsersData = usersData.filter((user: UserDataType) => user.email !== email);
-  localStorage.setItem('users', JSON.stringify(updatedUsersData));
+  // const usersData = JSON.parse(localStorage.getItem('users') || '[]');
+  // const updatedUsersData = usersData.filter((user: UserDataType) => user.email !== email);
+  // localStorage.setItem('users', JSON.stringify(updatedUsersData));
+  localStorage.removeItem('authuser');
 };
 
 
