@@ -30,6 +30,7 @@ const getUsersFromLocalStorage = (): UserDataType[] | null => {
 };
 
 const setUserToLocalStorage = (user: UserDataType): void => {
+  localStorage.setItem("authuser",JSON.stringify(user));
   const usersData = JSON.parse(localStorage.getItem('users') || '[]');
   usersData.push(user);
   localStorage.setItem('users', JSON.stringify(usersData));
@@ -42,12 +43,14 @@ const removeUserFromLocalStorage = (email: string): void => {
   localStorage.setItem('users', JSON.stringify(updatedUsersData));
 };
 
+
+
+
 /*--------- Local storage functions ends ----------*/
 
-
 const initialState: InitialStateType = {
-  user: null,
-  isLoggedIn: false,
+  user: localStorage.getItem("authuser") ? JSON.parse((localStorage.getItem("authuser") as string)) as UserDataType : null,
+  isLoggedIn: localStorage.getItem('authuser') ? true : false,
   error: '',
   isError: false,
 };
@@ -93,6 +96,7 @@ const userSlice = createSlice({
       const usersData = getUsersFromLocalStorage();
       const user = usersData?.find((user) => user.email === email);
       if (user && user.email === email && user.password === password) {
+        localStorage.setItem("authuser",JSON.stringify(user));
         state.isLoggedIn = true;
         state.user = user;
         state.error = '';
